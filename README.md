@@ -40,3 +40,16 @@ rsync -av --exclude .git \
 ```
 
 Sustituye `USUARIO` por la cuenta SDF. `index.html` es la charla en la raíz de <http://sgodoyo.sdf.org/>.
+
+## Licencias
+
+El texto de la charla (Org, HTML, CSS, scripts de export y el video) está bajo [CC BY-SA 4.0](LICENSE). Copyright 2026 Sebastián Godoy Olivares.
+
+Material de terceros (no se relicencia):
+
+- Reveal.js y plugins en `vendor/reveal.js/`: MIT. Ver [`vendor/reveal.js/LICENSE`](vendor/reveal.js/LICENSE).
+- Fuentes del tema black: ver los `LICENSE` junto a las fuentes.
+- Iconos SVG en `assets/simple-icons/`: [Simple Icons](https://github.com/simple-icons/simple-icons), CC0 1.0.
+- Badges en `assets/shields/`: [Shields](https://github.com/badges/shields), MIT / Apache-2.0.
+
+Las marcas (GNU, Linux, Firefox, etc.) siguen siendo de sus titulares. Uso nominativo, sin implicar respaldo. Detalle en [`assets/LICENCIAS.md`](assets/LICENCIAS.md).

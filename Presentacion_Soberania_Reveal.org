@@ -1,0 +1,1113 @@
+# Exportar a Reveal.js (ox-reveal; en este archivo C-c C-e h h también).
+#   ./exportar-reveal.sh
+#   C-c C-e h h  ·  C-c C-e R R  ·  SPC m E
+# Abrir: http://127.0.0.1:8765/Presentacion_Soberania_Reveal.html
+#        (Emacs arranca el servidor si hace falta; no uses file://)
+# Al abrir este .org, Emacs pregunta por variables locales: responde ! (sí y recordar).
+# Teclas: s notas · Esc mapa · C anotar · B pizarra
+# Iconos: ./scripts/descargar-iconos.sh  (Simple Icons CC0 + Shields MIT/Apache-2.0)
+#+TITLE: La soberanía no se terceriza
+#+SUBTITLE: Derechos, capacidades e infraestructura comunitaria
+#+AUTHOR: Sebastián Godoy Olivares
+#+DATE: 31 de octubre de 2026
+#+EMAIL:
+#+LANGUAGE: es
+#+OPTIONS: num:nil toc:nil timestamp:nil tex:nil reveal_title_slide:t
+#+REVEAL_ROOT: ./vendor/reveal.js
+#+REVEAL_REVEAL_JS_VERSION: 4
+#+REVEAL_HLEVEL: 1
+#+REVEAL_THEME: black
+#+REVEAL_TRANS: slide
+#+REVEAL_SPEED: default
+#+REVEAL_MARGIN: 0.06
+#+REVEAL_MIN_SCALE: 0.2
+#+REVEAL_MAX_SCALE: 2.0
+#+REVEAL_PLUGINS: (highlight markdown search notes zoom RevealChalkboard RevealCustomControls)
+#+REVEAL_EXTRA_SCRIPT_BEFORE_SRC: ./vendor/reveal.js/plugin/chalkboard/plugin.js
+#+REVEAL_EXTRA_SCRIPT_BEFORE_SRC: ./vendor/reveal.js/plugin/customcontrols/plugin.js
+#+REVEAL_EXTRA_CSS: ./css/soberania-reveal.css
+#+REVEAL_HIGHLIGHT_CSS: %r/plugin/highlight/monokai.css
+#+REVEAL_TITLE_SLIDE: <p class="evento">Insurgencia en la Datosfera · Red Diálogo Abierto Global</p><h1>%t</h1><h3>%s</h3><p>%a</p><p>%d · 20 minutos</p><div class="badges"><img src="assets/shields/gnu.svg" alt="GNU"><img src="assets/shields/linux.svg" alt="Linux"><img src="assets/shields/git.svg" alt="Git"></div><div class="si-row"><img class="si-box" src="assets/simple-icons/gnu.svg" alt="GNU"><img class="si-box" src="assets/simple-icons/linux.svg" alt="Linux"><img class="si-box" src="assets/simple-icons/git.svg" alt="Git"></div>
+#+REVEAL_INIT_OPTIONS: width:1920, height:1080, margin:0.06, minScale:0.2, maxScale:2.0, controls:true, progress:true, history:true, center:true, slideNumber:'c/t', hash:true, overview:true, keyboard:true, previewLinks:true, autoAnimateDuration:0.7, pdfSeparateFragments:false, chalkboard:{boardmarkerWidth:3}, customcontrols:{controls:[{icon:'✎', title:'Anotar lámina (C)', action:'RevealChalkboard.toggleNotesCanvas();'},{icon:'▦', title:'Pizarra (B)', action:'RevealChalkboard.toggleChalkboard();'}]}
+
+* ¿Quién guarda la llave?
+:PROPERTIES:
+:reveal_extra_attr: data-timing="60"
+:END:
+#+BEGIN_EXPORT html
+<p class="pregunta">Si mañana desaparece el proveedor,<br>¿podemos seguir con lo que es nuestro?</p>
+<p class="subpregunta">No es cuánto cuesta la herramienta.<br>Es quién guarda la llave.</p>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+00:00–01:00. Un segundo de silencio. Correo, documento, foto, modelo de IA. Presentarse breve. La pregunta vuelve con una historia cotidiana.
+#+END_NOTES
+
+* Una impresora
+:PROPERTIES:
+:reveal_extra_attr: data-timing="60"
+:END:
+En un laboratorio se compartía el código: leerlo, mejorarlo y pasarlo era lo normal.
+
+Llegó una máquina nueva ---una impresora--- *sin la receta*. No se pudo avisar el atasco.
+
+Si no puedes ver ni modificar el código, no controlas tu herramienta. Quedas dependiente del fabricante.
+
+#+BEGIN_NOTES
+01:00–02:00. Xerox 9700 en el laboratorio de IA del MIT. Stallman ya había mejorado otra impresora para avisar el atasco por la red. El fabricante negó el código. No es anécdota de hackers: es el mismo dilema de hoy. No recitar el nombre de la impresora salvo si preguntan. Si hay tiempo, bajar (flecha abajo) al código; si aprieta, seguir a la derecha.
+#+END_NOTES
+
+** El código
+:PROPERTIES:
+:reveal_extra_attr: data-timing="90"
+:END:
+La receta se lee. El binario no.
+
+#+BEGIN_EXPORT html
+<div class="codigo-slide">
+<pre><code class="cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+struct Impresora {
+  bool atasco = true;
+  std::string trabajo = "tesis.pdf";
+};
+
+void avisar_red(const std::string&amp; msg) {
+  std::cout &lt;&lt; "[red] " &lt;&lt; msg &lt;&lt; '\n';
+}
+
+void imprimir(const Impresora&amp; p) {
+  if (p.atasco) {
+    avisar_red("Atasco: avisar al laboratorio");
+    return; // con el fuente, esto se cambia
+  }
+  std::cout &lt;&lt; "Imprime: " &lt;&lt; p.trabajo &lt;&lt; '\n';
+}
+
+int main() {
+  Impresora p;
+  imprimir(p);
+}
+</code></pre>
+<div class="diagrama flujo-compilar">
+  <div class="flujo">
+    <div class="flujo-paso fragment"><div class="nodo">Fuente<br>.cpp</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo">Compilador</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo">Objeto<br>.o</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo">Enlazador</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo cerrado">Binario<br>caja cerrada</div></div>
+  </div>
+  <p class="diagrama-cierre fragment">El binario se ejecuta.<br>Sin la receta no se estudia ni se cambia.</p>
+</div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. Señalar =avisar_red=: eso es lo que no se pudo parchear sin fuente. No recitar el código. g++ solo si preguntan.
+#+END_NOTES
+
+** Git, GPL y la comunidad
+:PROPERTIES:
+:reveal_extra_attr: data-timing="80"
+:END:
+El mismo programa, ahora en común.
+
+#+BEGIN_EXPORT html
+<div class="diagrama flujo-git">
+  <div class="badges">
+    <img src="assets/shields/git.svg" alt="Git">
+    <img src="assets/shields/gpl.svg" alt="GPL">
+    <img src="assets/shields/copyleft.svg" alt="copyleft">
+  </div>
+  <div class="flujo">
+    <div class="flujo-paso fragment"><div class="nodo">Clonar<br>el repositorio</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo">Cambiar<br>avisar_red</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo">Compartir<br>el parche</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo rosa">GPL<br>sigue libre</div></div>
+  </div>
+  <p class="diagrama-cierre fragment">La receta viaja con las copias.<br>El fabricante no puede cerrarla.</p>
+  <p class="atajo fragment">Sin fuente no hay Git que valga: solo el binario.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. Clonar, cambiar, compartir. La GPL hace que las copias sigan libres. Flecha derecha para volver al relato de 20 min.
+#+END_NOTES
+
+* De un atasco a un sistema
+:PROPERTIES:
+:reveal_extra_attr: data-timing="60"
+:END:
+La impresora no inventó el software libre. Hizo visible el dilema.
+
+#+BEGIN_EXPORT html
+<div class="badges">
+<img class="fragment" src="assets/shields/gnu1983.svg" alt="1983 GNU">
+<img class="fragment" src="assets/shields/fsf.svg" alt="1985 FSF">
+<img class="fragment" src="assets/shields/gpl.svg" alt="1989 GPL">
+<img class="fragment" src="assets/shields/linux1991.svg" alt="1991 Linux">
+</div>
+<p class="frase-clave fragment">El proyecto, la licencia que no se puede cerrar,<br>y el kernel que faltaba. Por eso GNU/Linux.</p>
+<div class="badges"><img src="assets/shields/gnulinux.svg" alt="GNU/Linux"></div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+02:00–03:00. Decir en voz alta 1983 y 1991. GNU: sistema completo libre, compatible con Unix. 1985 manifiesto y FSF. GPL: copyleft, las libertades viajan con las copias. Linux (Torvalds) cierra la pieza del kernel; en 1992 pasa a GPLv2. gnu.org/gnu/initial-announcement.html · gnu.org/gnu/gnu-linux-faq.html
+#+END_NOTES
+
+* Tres condiciones
+:PROPERTIES:
+:reveal_extra_attr: data-timing="80"
+:END:
+Si falta una pata, se cae.
+
+#+BEGIN_EXPORT html
+<div class="diagrama">
+  <div class="nodo rosa techo fragment">Soberanía</div>
+  <div class="pilares">
+    <div class="pilar fragment">
+      <div class="columna"></div>
+      <div class="nodo">Derechos</div>
+      <p>ver y cambiar</p>
+    </div>
+    <div class="pilar fragment">
+      <div class="columna"></div>
+      <div class="nodo">Capacidades</div>
+      <p>saber operar</p>
+    </div>
+    <div class="pilar fragment">
+      <div class="columna"></div>
+      <div class="nodo">Infraestructura</div>
+      <p>poder irse</p>
+    </div>
+  </div>
+  <p class="diagrama-cierre fragment">La soberanía no se alquila. No se terceriza.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+03:00–04:20. Tres patas, leídas desde la impresora: derechos (ver y cambiar), capacidades (saber operar), infraestructura (no depender de un solo fabricante). Cooperar no está prohibido: lo frágil es no tener salida.
+#+END_NOTES
+
+* Libre no es gratis
+:PROPERTIES:
+:reveal_extra_attr: data-timing="60"
+:END:
+#+BEGIN_EXPORT html
+<div class="grid-2">
+<div class="fragment">
+<img src="assets/shields/gratis.svg" alt="Gratis">
+<p>Se usa sin pagar y sigue siendo una caja cerrada.</p>
+</div>
+<div class="fragment">
+<img src="assets/shields/libre.svg" alt="Libre">
+<p>Se puede ejecutar, entender, compartir y mejorar.</p>
+</div>
+</div>
+#+END_EXPORT
+
+Gratis es precio. Libre es derecho.
+
+#+BEGIN_NOTES
+04:20–05:20. App «gratis» que no deja exportar fotos.
+#+END_NOTES
+
+* Cuatro libertades
+:PROPERTIES:
+:reveal_extra_attr: data-timing="50"
+:END:
+Usarlo, estudiarlo, cambiarlo y compartirlo.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-libre">
+  <div class="nodo rosa techo fragment">Software libre</div>
+  <p class="mapa-lema fragment">Libertades, no precio.</p>
+  <div class="mapa-ejes fragment"><span></span><span></span><span></span><span></span></div>
+  <div class="mapa-libertades fragment">
+    <div class="mapa-lib"><img src="assets/shields/f0.svg" alt="F0 Ejecutar"><div class="nodo">Usar</div></div>
+    <div class="mapa-lib"><img src="assets/shields/f1.svg" alt="F1 Estudiar"><div class="nodo">Estudiar</div></div>
+    <div class="mapa-lib"><img src="assets/shields/f3.svg" alt="F3 Mejorar"><div class="nodo">Modificar</div></div>
+    <div class="mapa-lib"><img src="assets/shields/f2.svg" alt="F2 Compartir"><div class="nodo">Compartir</div></div>
+  </div>
+  <div class="mapa-puente fragment"><span></span><span class="on"></span><span class="on"></span><span></span></div>
+  <div class="mapa-fuente fragment">
+    <div class="nodo ok">Código fuente<span>hace falta para estudiar y cambiar</span></div>
+  </div>
+  <div class="badges fragment">
+    <img src="assets/shields/gnulinux.svg" alt="GNU/Linux">
+    <img src="assets/shields/firefox.svg" alt="Firefox">
+    <img src="assets/shields/libreoffice.svg" alt="LibreOffice">
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+05:20–06:00. El mapa, no el párrafo. Cuatro verbos: usar, estudiar, modificar, compartir. Libre no es (necesariamente) gratis. Señal al código fuente. GNU/Linux, Firefox, LibreOffice. Si aprieta el tiempo, no bajar al video.
+#+END_NOTES
+
+** Video (reserva)
+:PROPERTIES:
+:reveal_extra_attr: data-timing="100"
+:END:
+Lámina opcional. El archivo no tiene locución.
+
+#+BEGIN_EXPORT html
+<div class="video-frame">
+<video controls playsinline width="1280" height="720">
+  <source src="Software_Libre_Cuatro_Libertades_100s.mp4" type="video/mp4">
+</video>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Saltar con flecha derecha si el tiempo aprieta.
+#+END_NOTES
+
+* Libre y abierto
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+El mismo núcleo. Distinto énfasis.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-compartido">
+  <div class="mapa-ala fragment">
+    <img src="assets/shields/gnu.svg" alt="GNU">
+    <div class="nodo">Software libre</div>
+    <p>Énfasis: libertades de quien lo usa</p>
+  </div>
+  <div class="mapa-nucleo fragment">
+    <div class="nodo rosa">Lo compartido</div>
+    <div class="nodo ok">Código fuente<span>Revisar · modificar · compartir</span></div>
+    <p>Según la licencia. No es (necesariamente) gratis.</p>
+  </div>
+  <div class="mapa-ala fragment">
+    <img src="assets/shields/osi.svg" alt="Open Source">
+    <div class="nodo">Open source</div>
+    <p>Énfasis: apertura, colaboración, transparencia</p>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+06:00–06:25. No pelear por el nombre. Lo compartido: fuente, permiso, no es precio. El énfasis: libertades frente a ventajas prácticas. La siguiente lámina es el reverso.
+#+END_NOTES
+
+* Privativo
+:PROPERTIES:
+:reveal_extra_attr: data-timing="45"
+:END:
+El dueño controla el código.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-privativo">
+  <div class="nodo cerrado techo fragment">Software privativo</div>
+  <p class="mapa-lema fragment">La licencia dice qué puedes hacer.</p>
+  <div class="mapa-ejes fragment"><span></span><span></span><span></span></div>
+  <div class="mapa-cortes fragment">
+    <div class="nodo cerrado">Sin fuente</div>
+    <div class="nodo cerrado">No modificar</div>
+    <div class="nodo cerrado">No redistribuir</div>
+  </div>
+  <div class="mapa-fuente fragment">
+    <div class="nodo cerrado">El fabricante conserva el control<span>desarrollo · distribución · actualizaciones</span></div>
+  </div>
+  <div class="mapa-ejemplos fragment">
+    <div class="nodo">Windows · AutoCAD</div>
+  </div>
+  <p class="mapa-cierre fragment">Puede ser gratis. Sigue siendo privativo.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+06:25–06:40. Volver a la llave: el dueño decide. Sin receta no hay estudio ni copia libre. Gratis no salva. No recitar la EULA.
+#+END_NOTES
+
+* Privativo no es espía
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+Describe el control, no la vigilancia.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-confianza">
+  <div class="nodo rosa techo fragment">Privativo ≠ espía</div>
+  <p class="mapa-lema fragment">Quién controla el código. No demuestra vigilancia.</p>
+  <div class="contraste fragment">
+    <div class="nodo">Algunos sí recogen datos<span>diagnóstico y uso · Windows lo documenta</span></div>
+    <div class="nodo cerrado">No es una generalización<span>no todo sistema privativo espía</span></div>
+  </div>
+  <div class="mapa-fuente fragment">
+    <div class="nodo ok">Sin fuente, más difícil auditar<span>más confianza en el proveedor y sus políticas</span></div>
+  </div>
+  <div class="mapa-pilares fragment">
+    <div class="nodo">Diagnóstico<span>ver y gestionar</span></div>
+    <div class="nodo">Funciones conectadas<span>apagar las que no uses</span></div>
+    <div class="nodo">Permisos<span>cámara · micrófono · ubicación · archivos</span></div>
+  </div>
+  <p class="mapa-cierre fragment">Sin receta se confía más. Eso no prueba un espía oculto.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+06:40–07:05. Preocupación real, no una cacería. Privativo ≠ espía. Windows: datos documentados y controles, no recitar la política. Señalar auditar y ajustes. Si hay tiempo, bajar a los casos; si aprieta, seguir a la derecha.
+#+END_NOTES
+
+** Casos documentados
+:PROPERTIES:
+:reveal_extra_attr: data-timing="70"
+:END:
+No una cacería. Hechos con matices.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-casos">
+  <div class="nodo rosa techo fragment">Casos documentados</div>
+  <div class="mapa-ejes fragment"><span></span><span></span><span></span></div>
+  <div class="mapa-pilares fragment">
+    <div class="nodo">Lo que no esperabas<span>Street View Wi-Fi · Incógnito no es invisible</span></div>
+    <div class="nodo">Una herramienta que mira<span>Onavo · documentos sobre Snapchat</span></div>
+    <div class="nodo">La voz sale del aparato<span>Siri y contratistas · Samsung al usar el control</span></div>
+  </div>
+  <p class="mapa-cierre fragment">Esto no prueba que todo lo privativo espíe.<br>Sin receta, se confía más.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. Tres patrones, no seis juicios. Street View: Google dijo accidental; FCC multó por obstaculizar, no por violar esa ley. Incógnito 2024: acuerdo sin admisión; no te vuelve invisible. Onavo cerrada 2019. Snapchat/YouTube/Amazon: documentos de una demanda, no una sentencia. Siri 2019: contratistas, luego optar. Samsung 2015: al usar el control, no escucha todo. Flecha derecha para volver al relato de 20 min.
+#+END_NOTES
+
+* El permiso está escrito
+:PROPERTIES:
+:reveal_extra_attr: data-timing="50"
+:END:
+El código visible no basta. El permiso está en la licencia.
+
+#+BEGIN_EXPORT html
+<div class="diagrama">
+  <div class="nodo origen fragment">Código visible</div>
+  <span class="flujo-flecha">↓</span>
+  <div class="caminos">
+    <div class="camino fragment">
+      <img src="assets/shields/gpl.svg" alt="GPL">
+      <div class="nodo ok">Las copias siguen libres.<br>Nadie puede cerrarlas.</div>
+    </div>
+    <div class="camino fragment">
+      <img src="assets/shields/mit.svg" alt="MIT">
+      <div class="nodo alerta">Permiso sí.<br>Se puede cerrar.</div>
+    </div>
+  </div>
+  <div class="badges"><img src="assets/shields/copyleft.svg" alt="copyleft"></div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+06:30–07:20. GPL (1989, v2 en 1991): usa el derecho de autor para garantizar, no para restringir. MIT es el contraste: un técnico lo reconoce; el resto se lleva que el archivo abierto no basta. Si hay tiempo, bajar a Creative Commons (cultura, no código); si aprieta, seguir a la derecha.
+#+END_NOTES
+
+** Creative Commons
+:PROPERTIES:
+:reveal_extra_attr: data-timing="50"
+:END:
+Permisos de antemano para textos, fotos, música y video.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-cc">
+  <p class="mapa-lema">No elimina el derecho de autor. Establece condiciones para reutilizar.</p>
+  <div class="mapa-pilares">
+    <div class="nodo">BY<span>reconocer la autoría</span></div>
+    <div class="nodo">SA<span>misma licencia al adaptar</span></div>
+    <div class="nodo">NC<span>no comercial</span></div>
+    <div class="nodo">ND<span>sin obras derivadas</span></div>
+  </div>
+  <div class="contraste">
+    <div class="nodo ok">CC BY-SA<span>adaptar, incluso comercial · crédito y misma licencia</span></div>
+    <div class="nodo cerrado">CC BY-NC-ND<span>compartir tal cual · no comercial · crédito</span></div>
+  </div>
+  <div class="mapa-fuente">
+    <div class="nodo ok">CC0<span>renuncia, en la medida legal · dominio público</span></div>
+  </div>
+  <p class="mapa-cierre">Cultura y educación. El código usa GPL, MIT o Apache.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. El mapa, no el párrafo. BY y SA se parecen a atribuir y a copyleft. NC y ND recortan. CC0 no es «otra combinación»: es soltar. No recomendar CC para software. creativecommons.org. Flecha derecha para volver al relato de 20 min.
+#+END_NOTES
+
+* Lo de todos los días
+:PROPERTIES:
+:reveal_extra_attr: data-timing="90"
+:END:
+No hay que memorizar listas. Hay que saber dónde comparar.
+
+#+BEGIN_EXPORT html
+<div class="grid-3">
+<div class="habito fragment"><img src="assets/shields/navegar.svg" alt="Navegar"><p>en lugar de Chrome y similares</p></div>
+<div class="habito fragment"><img src="assets/shields/escribir.svg" alt="Escribir"><p>en lugar de Microsoft Office</p></div>
+<div class="habito fragment"><img src="assets/shields/video.svg" alt="Video"><p>en lugar del reproductor cerrado</p></div>
+<div class="habito fragment"><img src="assets/shields/imagen.svg" alt="Imagen"><p>en lugar de Photoshop e Illustrator</p></div>
+<div class="habito fragment"><img src="assets/shields/correo.svg" alt="Correo"><p>en lugar de Outlook y webmail cerrado</p></div>
+<div class="habito fragment"><img src="assets/shields/sistema.svg" alt="Sistema"><p>en lugar de Windows o macOS</p></div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+07:20–08:50. Mostrador de feria. Tecla C para anotar. Si hay tiempo, bajar al catálogo; si aprieta, seguir a la derecha. No recitar programas: señalar dos o tres. El mapa grande es directory.fsf.org.
+#+END_NOTES
+
+** Sistemas y celulares
+:PROPERTIES:
+:reveal_extra_attr: data-timing="45"
+:END:
+GNU/Linux, Unix y algunos teléfonos.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-catalogo">
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Computadoras y servidores</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/debian.svg" alt="">Debian</div>
+      <div class="nodo"><img src="assets/simple-icons/fedora.svg" alt="">Fedora</div>
+      <div class="nodo"><img src="assets/simple-icons/ubuntu.svg" alt="">Ubuntu</div>
+      <div class="nodo"><img src="assets/simple-icons/linuxmint.svg" alt="">Linux Mint</div>
+      <div class="nodo"><img src="assets/simple-icons/archlinux.svg" alt="">Arch Linux</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Unix</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/freebsd.svg" alt="">FreeBSD</div>
+      <div class="nodo"><img src="assets/simple-icons/openbsd.svg" alt="">OpenBSD</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Celulares</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/lineageos.svg" alt="">LineageOS</div>
+      <div class="nodo">Replicant</div>
+      <div class="nodo">microG</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Apps en el teléfono</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/fdroid.svg" alt="">F-Droid</div>
+      <div class="nodo"><img src="assets/simple-icons/kde.svg" alt="">KDE Connect</div>
+      <div class="nodo"><img src="assets/simple-icons/vlcmediaplayer.svg" alt="">VLC</div>
+      <div class="nodo"><img src="assets/simple-icons/firefoxbrowser.svg" alt="">Firefox</div>
+      <div class="nodo"><img src="assets/simple-icons/osmand.svg" alt="">OsmAnd</div>
+      <div class="nodo"><img src="assets/simple-icons/organicmaps.svg" alt="">Organic Maps</div>
+      <div class="nodo"><img src="assets/simple-icons/antennapod.svg" alt="">AntennaPod</div>
+    </div>
+  </div>
+  <p class="mapa-cierre">LineageOS: el soporte depende del modelo; firmware y controladores pueden seguir privativos. Replicant: menos dispositivos. F-Droid: f-droid.org · microG: microg.org.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. No recitar distros. Debian ya tiene lámina propia. F-Droid es el catálogo; LineageOS no magia un teléfono libre. Flecha derecha para volver al relato de 20 min.
+#+END_NOTES
+
+** Ofimática y notas
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+Documentos, correo y archivos en casa o en un servidor propio.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-catalogo">
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Oficina</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/libreoffice.svg" alt="">LibreOffice</div>
+      <div class="nodo">Collabora Online</div>
+      <div class="nodo"><img src="assets/simple-icons/onlyoffice.svg" alt="">ONLYOFFICE</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Correo, notas y archivos</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/thunderbird.svg" alt="">Thunderbird</div>
+      <div class="nodo"><img src="assets/simple-icons/zotero.svg" alt="">Zotero</div>
+      <div class="nodo"><img src="assets/simple-icons/joplin.svg" alt="">Joplin</div>
+      <div class="nodo"><img src="assets/simple-icons/nextcloud.svg" alt="">Nextcloud</div>
+      <div class="nodo">Calibre</div>
+    </div>
+  </div>
+  <p class="mapa-cierre">ONLYOFFICE: verifica la licencia de la edición que elijas.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. LibreOffice y Thunderbird bastan en voz alta. Nextcloud: alojado por ti o por un proveedor. No recitar.
+#+END_NOTES
+
+** Ciencia e ingeniería
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+Cálculo, mapas, circuitos y simulación.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-catalogo">
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Cálculo</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/octave.svg" alt="">GNU Octave</div>
+      <div class="nodo"><img src="assets/simple-icons/scilab.svg" alt="">Scilab</div>
+      <div class="nodo">SageMath</div>
+      <div class="nodo"><img src="assets/simple-icons/sympy.svg" alt="">SymPy</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Lenguajes y cuadernos</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/r.svg" alt="">R</div>
+      <div class="nodo"><img src="assets/simple-icons/python.svg" alt="">Python</div>
+      <div class="nodo"><img src="assets/simple-icons/julia.svg" alt="">Julia</div>
+      <div class="nodo"><img src="assets/simple-icons/jupyter.svg" alt="">Jupyter</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Mapas y gráficos</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/qgis.svg" alt="">QGIS</div>
+      <div class="nodo">GRASS GIS</div>
+      <div class="nodo">Gnuplot</div>
+      <div class="nodo">Matplotlib</div>
+      <div class="nodo">LabPlot</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Diseño y simulación</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/kicad.svg" alt="">KiCad</div>
+      <div class="nodo"><img src="assets/simple-icons/freecad.svg" alt="">FreeCAD</div>
+      <div class="nodo">LibreCAD</div>
+      <div class="nodo"><img src="assets/simple-icons/openscad.svg" alt="">OpenSCAD</div>
+      <div class="nodo">OpenFOAM</div>
+      <div class="nodo">GROMACS</div>
+      <div class="nodo"><img src="assets/simple-icons/inkscape.svg" alt="">Inkscape</div>
+    </div>
+  </div>
+  <p class="mapa-cierre">Octave cubre muchos usos de MATLAB.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. Un nombre según la sala: Octave, QGIS o KiCad. No recitar la lista.
+#+END_NOTES
+
+** Arte y diseño
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+Imagen, 3D, maquetación y animación.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-catalogo">
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Imagen</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/gimp.svg" alt="">GIMP</div>
+      <div class="nodo"><img src="assets/simple-icons/krita.svg" alt="">Krita</div>
+      <div class="nodo">MyPaint</div>
+      <div class="nodo"><img src="assets/simple-icons/inkscape.svg" alt="">Inkscape</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">3D y prototipo</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/blender.svg" alt="">Blender</div>
+      <div class="nodo"><img src="assets/simple-icons/freecad.svg" alt="">FreeCAD</div>
+      <div class="nodo"><img src="assets/simple-icons/penpot.svg" alt="">Penpot</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Publicar y animar</p>
+    <div class="catalogo-chips">
+      <div class="nodo">Scribus</div>
+      <div class="nodo">OpenToonz</div>
+      <div class="nodo">Synfig</div>
+      <div class="nodo">Pencil2D</div>
+    </div>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. GIMP e Inkscape ya salieron en el mostrador. Blender si hay pregunta de video o 3D.
+#+END_NOTES
+
+** Música y video
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+Grabar, editar y reproducir.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-catalogo">
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Audio</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/ardour.svg" alt="">Ardour</div>
+      <div class="nodo"><img src="assets/simple-icons/lmms.svg" alt="">LMMS</div>
+      <div class="nodo"><img src="assets/simple-icons/audacity.svg" alt="">Audacity</div>
+      <div class="nodo"><img src="assets/simple-icons/musescore.svg" alt="">MuseScore</div>
+      <div class="nodo">Mixxx</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Video</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/obsstudio.svg" alt="">OBS Studio</div>
+      <div class="nodo"><img src="assets/simple-icons/kdenlive.svg" alt="">Kdenlive</div>
+      <div class="nodo"><img src="assets/simple-icons/shotcut.svg" alt="">Shotcut</div>
+      <div class="nodo">OpenShot</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Reproducir</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/vlcmediaplayer.svg" alt="">VLC</div>
+      <div class="nodo"><img src="assets/simple-icons/mpv.svg" alt="">mpv</div>
+    </div>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. VLC ya está en el mostrador. OBS si preguntan por transmisiones.
+#+END_NOTES
+
+** Federar y comunicar
+:PROPERTIES:
+:reveal_extra_attr: data-timing="50"
+:END:
+Distintos servidores, se hablan. Cada uno con sus normas.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-catalogo">
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Microblog y comunidades</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/mastodon.svg" alt="">Mastodon</div>
+      <div class="nodo"><img src="assets/simple-icons/pleroma.svg" alt="">Pleroma</div>
+      <div class="nodo">GoToSocial</div>
+      <div class="nodo"><img src="assets/simple-icons/lemmy.svg" alt="">Lemmy</div>
+      <div class="nodo">PieFed</div>
+      <div class="nodo">Mbin</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Foto, video, red y eventos</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/pixelfed.svg" alt="">Pixelfed</div>
+      <div class="nodo"><img src="assets/simple-icons/peertube.svg" alt="">PeerTube</div>
+      <div class="nodo">Friendica</div>
+      <div class="nodo">Mobilizon</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Hablar</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/matrix.svg" alt="">Matrix</div>
+      <div class="nodo"><img src="assets/simple-icons/element.svg" alt="">Element</div>
+      <div class="nodo"><img src="assets/simple-icons/jitsi.svg" alt="">Jitsi Meet</div>
+      <div class="nodo"><img src="assets/simple-icons/mumble.svg" alt="">Mumble</div>
+    </div>
+  </div>
+  <p class="mapa-cierre">Matrix: protocolo abierto; revisa el cliente. No hay un Netflix libre: Jellyfin y Kodi reproducen tus archivos. PeerTube publica videos de comunidades, no el catálogo comercial.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. La lámina siguiente del relato (Federar) es el mapa. Esta es la lista. ActivityPub. Netflix: no fingir equivalencia.
+#+END_NOTES
+
+** Servidores y código
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+Lo que sostiene sitios, datos y repositorios.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-catalogo">
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Bases</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/linux.svg" alt="">Linux</div>
+      <div class="nodo"><img src="assets/simple-icons/debian.svg" alt="">Debian</div>
+      <div class="nodo"><img src="assets/simple-icons/freebsd.svg" alt="">FreeBSD</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Web, DNS y cifrado</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/nginx.svg" alt="">Nginx</div>
+      <div class="nodo"><img src="assets/simple-icons/apache.svg" alt="">Apache HTTP</div>
+      <div class="nodo"><img src="assets/simple-icons/caddy.svg" alt="">Caddy</div>
+      <div class="nodo">BIND</div>
+      <div class="nodo">Unbound</div>
+      <div class="nodo"><img src="assets/simple-icons/openssl.svg" alt="">OpenSSL</div>
+      <div class="nodo"><img src="assets/simple-icons/wireguard.svg" alt="">WireGuard</div>
+      <div class="nodo"><img src="assets/simple-icons/openvpn.svg" alt="">OpenVPN</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Datos y empaquetado</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/postgresql.svg" alt="">PostgreSQL</div>
+      <div class="nodo"><img src="assets/simple-icons/mariadb.svg" alt="">MariaDB</div>
+      <div class="nodo"><img src="assets/simple-icons/sqlite.svg" alt="">SQLite</div>
+      <div class="nodo"><img src="assets/simple-icons/docker.svg" alt="">Docker</div>
+      <div class="nodo"><img src="assets/simple-icons/podman.svg" alt="">Podman</div>
+      <div class="nodo"><img src="assets/simple-icons/kubernetes.svg" alt="">Kubernetes</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Código y sitios</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/git.svg" alt="">Git</div>
+      <div class="nodo"><img src="assets/simple-icons/forgejo.svg" alt="">Forgejo</div>
+      <div class="nodo"><img src="assets/simple-icons/gitea.svg" alt="">Gitea</div>
+      <div class="nodo"><img src="assets/simple-icons/python.svg" alt="">Python</div>
+      <div class="nodo"><img src="assets/simple-icons/php.svg" alt="">PHP</div>
+      <div class="nodo"><img src="assets/simple-icons/rust.svg" alt="">Rust</div>
+      <div class="nodo"><img src="assets/simple-icons/go.svg" alt="">Go</div>
+      <div class="nodo"><img src="assets/simple-icons/gnu.svg" alt="">GCC</div>
+      <div class="nodo"><img src="assets/simple-icons/wordpress.svg" alt="">WordPress</div>
+      <div class="nodo"><img src="assets/simple-icons/drupal.svg" alt="">Drupal</div>
+    </div>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. Para sala no técnica: Git y Debian bastan. No recitar servidores.
+#+END_NOTES
+
+** Juegos
+:PROPERTIES:
+:reveal_extra_attr: data-timing="35"
+:END:
+Jugar y crear.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-catalogo">
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Crear</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/godotengine.svg" alt="">Godot</div>
+      <div class="nodo">GDevelop</div>
+    </div>
+  </div>
+  <div class="catalogo-bloque">
+    <p class="catalogo-eje">Mundos y partidas</p>
+    <div class="catalogo-chips">
+      <div class="nodo"><img src="assets/simple-icons/minetest.svg" alt="">Minetest / Luanti</div>
+      <div class="nodo">0 A.D.</div>
+      <div class="nodo">Battle for Wesnoth</div>
+      <div class="nodo">SuperTuxKart</div>
+    </div>
+  </div>
+  <p class="mapa-cierre">GDevelop: conviene revisar la licencia según la versión.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. Un juego si hay tiempo. Godot si preguntan cómo se hacen. Flecha derecha para volver al relato de 20 min.
+#+END_NOTES
+
+* Federar
+:PROPERTIES:
+:reveal_extra_attr: data-timing="45"
+:END:
+Como el correo: distintos servidores, se hablan.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-federar">
+  <div class="nodo rosa techo fragment">Federar</div>
+  <p class="mapa-lema fragment">No una sola empresa. Comunidades con servidores propios.</p>
+  <div class="mapa-pares fragment">
+    <div class="nodo mapa-par"><span>Facebook</span>Friendica · diaspora*</div>
+    <div class="nodo mapa-par"><span>Reddit</span>Lemmy · PieFed</div>
+    <div class="nodo mapa-par"><span>X</span>Mastodon</div>
+    <div class="nodo mapa-par"><span>YouTube · TikTok</span>PeerTube · Pixelfed</div>
+  </div>
+  <div class="mapa-fuente fragment">
+    <div class="nodo ok">ActivityPub<span>cada servidor: reglas y moderación propias</span></div>
+  </div>
+  <p class="mapa-cierre fragment">Más control. Hay que sostener la red.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+08:50–09:20. Analogía del correo. No recitar la lista: señalar Mastodon y ActivityPub. Contrapartida: servidores, moderación, menos escala. PeerTube no copia el algoritmo de TikTok.
+#+END_NOTES
+
+* Debian
+:PROPERTIES:
+:reveal_extra_attr: data-timing="50"
+:END:
+Una distribución GNU/Linux que sostiene internet.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-debian">
+  <div class="badges fragment">
+    <img src="assets/shields/debian.svg" alt="Debian">
+    <img src="assets/shields/gnulinux.svg" alt="GNU/Linux">
+  </div>
+  <div class="nodo rosa techo fragment">Debian</div>
+  <p class="mapa-lema fragment">Núcleo Linux y miles de programas. Servidores, PCs, otros dispositivos.</p>
+  <div class="mapa-ejes fragment"><span></span><span></span><span></span></div>
+  <div class="mapa-pilares fragment">
+    <div class="nodo">Comunidad<span>empaqueta y actualiza</span></div>
+    <div class="nodo">Infraestructura<span>repositorios y documentación</span></div>
+    <div class="nodo">Internet<span>web · correo · datos</span></div>
+  </div>
+  <div class="mapa-fuente fragment">
+    <div class="nodo ok">Contrato Social · DFSG<span>usuarios y software libre primero · bugs públicos</span></div>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+09:20–09:50. No recitar el contrato. Señalar: la comunidad empaqueta lo que corre internet. DFSG: priorizar a quien usa, no al fabricante. Luego los tres mapas para fotografiar.
+#+END_NOTES
+
+* Tres mapas
+:PROPERTIES:
+:reveal_extra_attr: data-timing="150"
+:END:
+#+BEGIN_EXPORT html
+<div class="qr-grid">
+  <div class="qr-card">
+    <img class="qr" src="assets/qr/definicion.png" alt="QR definición GNU">
+    <h3>Definición</h3>
+    <img class="badge-mini" src="assets/shields/definicion.svg" alt="Definición GNU">
+    <p><a href="https://www.gnu.org/philosophy/free-sw.es.html">gnu.org/philosophy/free-sw.es.html</a></p>
+  </div>
+  <div class="qr-card">
+    <img class="qr" src="assets/qr/catalogo.png" alt="QR catálogo FSF">
+    <h3>Catálogo</h3>
+    <img class="badge-mini" src="assets/shields/catalogo.svg" alt="Catálogo FSF">
+    <p><a href="https://directory.fsf.org/">directory.fsf.org</a></p>
+  </div>
+  <div class="qr-card">
+    <img class="qr" src="assets/qr/matriz.png" alt="QR matriz">
+    <h3>Matriz</h3>
+    <img class="badge-mini" src="assets/shields/matriz.svg" alt="Matriz Windows">
+    <p><a href="https://directory.fsf.org/wiki/Collection:Windows">Collection:Windows</a></p>
+  </div>
+</div>
+<p class="atajo">Guía cotidiana:
+<img src="assets/shields/switching.svg" alt="switching.software" style="height:28px;vertical-align:middle">
+<img src="assets/qr/switching.png" alt="QR switching" height="56" style="vertical-align:middle;margin-left:0.5rem"></p>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+09:50–12:20. Lámina para fotografiar. Tres mapas, no recitar programas.
+#+END_NOTES
+
+* Poder irse
+:PROPERTIES:
+:reveal_extra_attr: data-timing="150"
+:END:
+El programa libre es el comienzo, no el final.
+
+#+BEGIN_EXPORT html
+<div class="diagrama">
+  <div class="badges">
+    <img src="assets/shields/git.svg" alt="Git">
+    <img src="assets/shields/linux.svg" alt="Linux">
+    <img src="assets/shields/gnuemacs.svg" alt="Emacs">
+  </div>
+  <div class="flujo">
+    <div class="flujo-paso fragment"><div class="nodo">Copia<br>fuera</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo">Formato<br>abierto</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo">Claves<br>propias</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso fragment"><div class="nodo">Costo<br>de irse</div></div>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+12:20–14:50. Respaldo, exportación, llaves, costo de salida.
+#+END_NOTES
+
+* Un LLM
+:PROPERTIES:
+:reveal_extra_attr: data-timing="45"
+:END:
+Predice el siguiente texto. No entiende.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-llm">
+  <div class="nodo rosa techo fragment">LLM</div>
+  <p class="mapa-lema fragment">Entrenado con mucho texto. Reconoce patrones del lenguaje.</p>
+  <div class="mapa-eje-uno fragment"><span></span></div>
+  <div class="mapa-paso fragment">
+    <div class="nodo ok">Instrucción → siguiente palabra</div>
+  </div>
+  <div class="mapa-ejes fragment"><span></span><span></span><span></span><span></span></div>
+  <div class="mapa-libertades fragment">
+    <div class="nodo">Resumir</div>
+    <div class="nodo">Traducir</div>
+    <div class="nodo">Explicar</div>
+    <div class="nodo">Redactar</div>
+  </div>
+  <div class="mapa-fuente fragment">
+    <div class="nodo cerrado">No entiende como una persona<span>puede equivocarse · inventar datos · sesgos del entrenamiento</span></div>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+14:50–15:20. El mapa, no el párrafo. Calcula lo probable, no lo verdadero. Inventar datos: no hace falta la palabra alucinación. Luego el agente.
+#+END_NOTES
+
+* Un agente
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+Recibe un objetivo. Decide. Actúa.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-agente">
+  <div class="nodo rosa techo fragment">Agente</div>
+  <div class="flujo fragment">
+    <div class="flujo-paso"><div class="nodo">Objetivo</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso"><div class="nodo">Decide</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso"><div class="nodo">Actúa</div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso"><div class="nodo">Ajusta</div></div>
+  </div>
+  <div class="mapa-pilares fragment">
+    <div class="nodo">LLM<span>razona</span></div>
+    <div class="nodo">Herramientas<span>buscar · código · datos</span></div>
+    <div class="nodo">Permisos<span>limitan la autonomía</span></div>
+  </div>
+  <div class="contraste fragment">
+    <div class="nodo cerrado">Chatbot<span>un mensaje, una respuesta</span></div>
+    <div class="nodo ok">Agente<span>encadena varios pasos</span></div>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+15:20–15:50. No recitar. Chatbot responde; agente encadena. Señalar permisos: quién deja buscar, ejecutar, consultar. Vuelve a la llave.
+#+END_NOTES
+
+* IA: bajar pesos no es gobernar
+:PROPERTIES:
+:reveal_extra_attr: data-timing="80"
+:END:
+Antes de llamar «abierto» a un modelo:
+
+#+BEGIN_EXPORT html
+<div class="diagrama">
+  <div class="orbita">
+    <div class="nodo fragment">Licencia<br>usar, estudiar, compartir</div>
+    <div class="nodo fragment">Ejecutar<br>en un equipo propio</div>
+    <div class="nodo fragment">Datos<br>información suficiente</div>
+    <div class="nodo fragment">Secretos<br>se quedan en casa</div>
+    <div class="nodo rosa centro">Pesos</div>
+    <div class="nodo fragment">¿Quién<br>apaga el servicio?</div>
+  </div>
+  <p class="diagrama-cierre fragment">Descargar un archivo no es gobernar el sistema.</p>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+15:50–16:50. Analogía: te prestan el motor sin manual ni taller. Si hay tiempo, bajar al caso práctico; si aprieta, seguir a la derecha.
+#+END_NOTES
+
+** Un modelo en tu equipo
+:PROPERTIES:
+:reveal_extra_attr: data-timing="70"
+:END:
+La generación es local. La descarga no.
+
+#+BEGIN_EXPORT html
+<div class="diagrama mapa-ollama">
+  <p class="mapa-lema">«Open source» en un modelo se revisa en la licencia de esa versión.</p>
+  <div class="flujo">
+    <div class="flujo-paso"><div class="nodo">Ollama<span>motor libre · instala con red</span></div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso"><div class="nodo">Qwen3<span>Apache 2.0 · 8B ~5,2 GB o 4B</span></div></div>
+    <span class="flujo-flecha">→</span>
+    <div class="flujo-paso"><div class="nodo">Correr<span>en tu equipo</span></div></div>
+  </div>
+  <pre><code class="nohighlight">ollama run qwen3:8b</code></pre>
+  <div class="contraste">
+    <div class="nodo">llama.cpp<span>MIT · GGUF · CPU o GPU</span></div>
+    <div class="nodo cerrado">No exponer la API<span>auth y cortafuegos</span></div>
+  </div>
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+Reserva. No recitar curl | sh. Cuantización: menos peso, algo de calidad. Si hay poca RAM, qwen3:4b. La conversación queda en el equipo; instalar y bajar el modelo piden red. Flecha derecha para volver al relato de 20 min.
+#+END_NOTES
+
+* Cinco verbos
+:PROPERTIES:
+:reveal_extra_attr: data-timing="140"
+:END:
+Para el manifiesto de la Red:
+
+#+BEGIN_EXPORT html
+<div class="badges stack">
+<img class="fragment" src="assets/shields/auditar.svg" alt="Auditar">
+<img class="fragment" src="assets/shields/portabilidad.svg" alt="Portabilidad">
+<img class="fragment" src="assets/shields/reproducibilidad.svg" alt="Reproducibilidad">
+<img class="fragment" src="assets/shields/alfabetizacion.svg" alt="Alfabetización">
+<img class="fragment" src="assets/shields/gobernanza.svg" alt="Gobernanza">
+</div>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+16:50–19:10. Cada verbo es medible.
+#+END_NOTES
+
+* La soberanía se construye
+:PROPERTIES:
+:reveal_extra_attr: data-timing="40"
+:END:
+#+BEGIN_EXPORT html
+<p class="pregunta">Si mañana tu proveedor desaparece,<br>¿puedes continuar?</p>
+<p class="frase-clave">La soberanía no se terceriza.<br>Se aprende, se construye y se sostiene.</p>
+<p><small>Sebastián Godoy Olivares<br>
+<a href="https://sgodoy.sdf.org">sgodoy.sdf.org</a> ·
+<a href="https://github.com/ehshackleton">github.com/ehshackleton</a></small></p>
+<div class="badges">
+<img src="assets/shields/definicion.svg" alt="Definición">
+<img src="assets/shields/catalogo.svg" alt="Catálogo">
+<img src="assets/shields/matriz.svg" alt="Matriz">
+</div>
+<p class="creditos">Iconos: <a href="https://github.com/simple-icons/simple-icons">Simple Icons</a> (CC0) ·
+Badges: <a href="https://github.com/badges/shields">Shields</a> (MIT / Apache-2.0).<br>
+Uso nominativo de marcas. Detalle en assets/LICENCIAS.md. Esta charla no está patrocinada por esos proyectos.</p>
+#+END_EXPORT
+
+#+BEGIN_NOTES
+19:10–20:00. Volver a la pregunta. Dejar las tres URLs.
+#+END_NOTES
+
+# Local Variables:
+# eval: (load-file (expand-file-name "emacs/ox-html-como-reveal.el" (or (locate-dominating-file default-directory ".dir-locals.el") default-directory)))
+# End:

@@ -1,0 +1,7 @@
+services:
+  presentacion:
+    build: .
+    image: present-reddag
+    ports:
+      - "8080:80"
+    restart: unless-stopped

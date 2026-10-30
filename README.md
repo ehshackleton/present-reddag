@@ -2,17 +2,26 @@
 
 Charla Reveal.js (Org → HTML) para la Insurgencia en la Datosfera, RedDAG, 31 de octubre de 2026.
 
+Repositorio: <https://github.com/ehshackleton/present-reddag>
 Sitio previsto: <http://sgodoyo.sdf.org/>
 
-## Ver en local
+Teclas: `s` notas · `Esc` mapa · `C` anotar · `B` pizarra. Flecha derecha = relato de 20 minutos; flecha abajo = reserva.
+
+## Docker Compose
+
+```bash
+docker compose up --build
+```
+
+Abre <http://127.0.0.1:8080/>. La imagen Nginx sirve `index.html`, CSS, `vendor/`, iconos, QR y el video.
+
+## Ver sin Docker
 
 ```bash
 python3 -m http.server 8765
 ```
 
 Abre <http://127.0.0.1:8765/> (usa `index.html`; no abras el archivo con `file://`).
-
-Teclas: `s` notas · `Esc` mapa · `C` anotar · `B` pizarra. Flecha derecha = relato de 20 minutos; flecha abajo = reserva.
 
 ## Regenerar el HTML
 
@@ -36,6 +45,8 @@ En SDF el sitio del usuario suele ser `~/html/`. Desde este directorio:
 rsync -av --exclude .git \
   --exclude emacs --exclude scripts --exclude '*.org' \
   --exclude exportar-reveal.sh --exclude README.md --exclude .gitignore \
+  --exclude Dockerfile --exclude compose.yaml --exclude nginx.conf \
+  --exclude .dockerignore --exclude LICENSE \
   ./ USUARIO@sdf.org:html/
 ```
 

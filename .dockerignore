@@ -1,0 +1,12 @@
+.git
+.gitignore
+emacs
+scripts
+*.org
+exportar-reveal.sh
+README.md
+LICENSE
+.dockerignore
+.dir-locals.el
+.DS_Store
+*~

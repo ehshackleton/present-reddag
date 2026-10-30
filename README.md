@@ -3,7 +3,7 @@
 Charla Reveal.js (Org → HTML) para la Insurgencia en la Datosfera, RedDAG, 31 de octubre de 2026.
 
 Repositorio: <https://github.com/ehshackleton/present-reddag>
-Sitio previsto: <http://sgodoyo.sdf.org/>
+Sitio: <http://sgodoy.sdf.org/>
 
 Teclas: `s` notas · `Esc` mapa · `C` anotar · `B` pizarra. Flecha derecha = relato de 20 minutos; flecha abajo = reserva.
 
@@ -47,10 +47,10 @@ rsync -av --exclude .git \
   --exclude exportar-reveal.sh --exclude README.md --exclude .gitignore \
   --exclude Dockerfile --exclude compose.yaml --exclude nginx.conf \
   --exclude .dockerignore --exclude LICENSE \
-  ./ USUARIO@sdf.org:html/
+  ./ sgodoy@sdf.org:html/
 ```
 
-Sustituye `USUARIO` por la cuenta SDF. `index.html` es la charla en la raíz de <http://sgodoyo.sdf.org/>.
+`index.html` es la charla en la raíz de <http://sgodoy.sdf.org/>.
 
 ## Licencias
 
